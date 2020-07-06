@@ -7,6 +7,7 @@ import { RequestValidationError, DatabaseConnectionError } from '../errors';
 
 const router = express.Router();
 
+// TODO make better - check api docs
 const validators = [
   body('email').isEmail().withMessage(ERROR_MESSAGES.EMAIL),
   body('password')
