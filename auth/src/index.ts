@@ -3,10 +3,12 @@ import morgan from 'morgan';
 import { json } from 'body-parser';
 import { log } from './utils';
 
-import { currentUserRouter } from './routes/currentUser';
-import { signinRouter } from './routes/signin';
-import { signoutRouter } from './routes/signout';
-import { signupRouter } from './routes/signup';
+import {
+  signinRouter,
+  signoutRouter,
+  signupRouter,
+  currentUserRouter
+} from './routes';
 import { errorHandler } from './middleware/errorHandler';
 
 const app = express();
@@ -15,10 +17,10 @@ app.use(morgan('dev'));
 app.use(json());
 
 // routes
-app.use(currentUserRouter);
 app.use(signinRouter);
 app.use(signoutRouter);
 app.use(signupRouter);
+app.use(currentUserRouter);
 
 app.use(errorHandler);
 

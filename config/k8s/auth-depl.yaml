@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: auth
-          image: gcr.io/ticketing-dev-281509/auth
+          image: dockercv/auth
 ---
 apiVersion: v1
 kind: Service
