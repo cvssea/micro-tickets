@@ -2,7 +2,7 @@ import express from 'express';
 import 'express-async-errors';
 import morgan from 'morgan';
 import { json } from 'body-parser';
-import { log } from './utils';
+import mongoose from 'mongoose';
 
 import {
   signinRouter,
@@ -10,6 +10,7 @@ import {
   signupRouter,
   currentUserRouter,
 } from './routes';
+import { log } from './utils';
 import { errorHandler } from './middleware/errorHandler';
 import { NotFoundError } from './errors/NotFoundError';
 
@@ -30,7 +31,23 @@ app.all('*', () => {
 
 app.use(errorHandler);
 
-const port = 3000;
-app.listen(port, () => {
-  log(`Server started on port ${port}`);
-});
+const runApp = async () => {
+  try {
+    await mongoose.connect('mongodb://auth-mongo-srv:27017', {
+      useCreateIndex: true,
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
+
+    log('DB Connected');
+
+    const port = 3000;
+    app.listen(port, () => {
+      log(`Server started on port ${port}`);
+    });
+  } catch (e) {
+    console.error(e);
+  }
+}
+
+runApp();

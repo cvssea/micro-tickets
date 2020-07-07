@@ -2,8 +2,9 @@ import express, { Request, Response } from 'express';
 import { body, validationResult } from 'express-validator';
 
 import { log } from '../utils';
+import { User } from '../models/user';
 import { ERROR_MESSAGES } from '../config';
-import { RequestValidationError, DatabaseConnectionError } from '../errors';
+import { RequestValidationError } from '../errors';
 
 const router = express.Router();
 
@@ -16,18 +17,21 @@ const validators = [
     .withMessage(ERROR_MESSAGES.PASSWORD),
 ];
 
-router.post('/api/users/signup', validators, (req: Request, res: Response) => {
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    throw new RequestValidationError(errors.array());
+router.post(
+  '/api/users/signup',
+  validators,
+  async (req: Request, res: Response) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      throw new RequestValidationError(errors.array());
+    }
+
+    const { email, password } = req.body;
+    const user = User.build({ email, password });
+    await user.save();
+
+    res.status(201).json(user);
   }
-
-  throw new DatabaseConnectionError();
-
-  const { email, password } = req.body;
-  log('Creating user!');
-
-  res.status(201).json({});
-});
+);
 
 export { router as signupRouter };
