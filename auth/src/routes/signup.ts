@@ -2,19 +2,19 @@ import express, { Request, Response } from 'express';
 import { body, validationResult } from 'express-validator';
 
 import { log } from '../utils';
+import { ERROR } from '../config';
 import { User } from '../models/user';
-import { ERROR_MESSAGES } from '../config';
 import { RequestValidationError } from '../errors';
 
 const router = express.Router();
 
 // TODO make better - check api docs
 const validators = [
-  body('email').isEmail().withMessage(ERROR_MESSAGES.EMAIL),
+  body('email').isEmail().withMessage(ERROR.INVALID_EMAIL),
   body('password')
     .trim()
     .isLength({ min: 4, max: 20 })
-    .withMessage(ERROR_MESSAGES.PASSWORD),
+    .withMessage(ERROR.INVALID_PASSWORD),
 ];
 
 router.post(
