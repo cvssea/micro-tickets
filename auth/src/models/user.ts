@@ -2,7 +2,8 @@ import { MongoError } from 'mongodb';
 import mongoose from 'mongoose';
 
 import { emailValidator, log } from '../utils';
-import { BadRequestError } from '../errors';
+import { BadRequestError } from '../lib/errors';
+import { Password } from '../lib';
 import { ERROR } from '../config';
 
 // describe User schema
@@ -47,6 +48,16 @@ const userSchema = new mongoose.Schema({
 });
 
 userSchema.statics.build = (params: UserParams) => new User(params);
+
+userSchema.pre('save', async function (done) {
+  if (this.isModified('password')) {
+    const hashedPassword = await Password.hash(this.get('password'));
+    this.set('password', hashedPassword);
+  }
+
+  done();
+});
+
 userSchema.post('save', function (
   err: MongoError,
   doc: mongoose.Document,
@@ -59,6 +70,16 @@ userSchema.post('save', function (
   } else {
     next(err);
   }
+});
+
+userSchema.set('toJSON', {
+  transform: (doc: mongoose.Document, ret: any) => {
+    ret.id = ret._id;
+
+    delete ret._id;
+    delete ret.password;
+  },
+  versionKey: false,
 });
 
 const User = mongoose.model<UserDoc, UserModel>('User', userSchema);

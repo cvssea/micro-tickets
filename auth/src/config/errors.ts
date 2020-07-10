@@ -3,4 +3,5 @@ export const ERROR = {
   INVALID_PASSWORD: 'invalid-password-format',
   EMAIL_REQUIRED: 'email-required',
   EMAIL_EXISTS: 'email-already-exists',
+  NOT_FOUND: 'endpoint-not-found',
 };

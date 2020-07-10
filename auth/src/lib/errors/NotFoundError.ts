@@ -1,4 +1,5 @@
 import { CustomError } from './CustomError';
+import { ERROR } from '../../config';
 
 export class NotFoundError extends CustomError {
   statusCode = 404;
@@ -10,7 +11,7 @@ export class NotFoundError extends CustomError {
 
   serialize() {
     return {
-      errorData: [{ msg: 'Endpoint not found' }],
+      errorData: [{ msg: ERROR.NOT_FOUND }],
     };
   }
 }

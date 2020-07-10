@@ -1,10 +1,11 @@
+import jwt from 'jsonwebtoken';
 import express, { Request, Response } from 'express';
 import { body, validationResult } from 'express-validator';
 
 import { log } from '../utils';
-import { ERROR } from '../config';
 import { User } from '../models/user';
-import { RequestValidationError } from '../errors';
+import { ERROR } from '../config';
+import { RequestValidationError } from '../lib/errors/RequestValidationError';
 
 const router = express.Router();
 
@@ -30,6 +31,15 @@ router.post(
     const user = User.build({ email, password });
     await user.save();
 
+    const token = jwt.sign(
+      {
+        id: user.id,
+        email: user.email,
+      },
+      process.env.JWT_SECRET!
+    );
+
+    req.session = { jwt: token };
     res.status(201).json(user);
   }
 );
