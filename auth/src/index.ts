@@ -12,7 +12,7 @@ import {
 } from './routes';
 import { log } from './utils';
 import { errorHandler } from './middleware/errorHandler';
-import { NotFoundError } from './errors/NotFoundError';
+import { NotFoundError, DatabaseConnectionError } from './errors';
 
 const app = express();
 
@@ -46,7 +46,7 @@ const runApp = async () => {
       log(`Server started on port ${port}`);
     });
   } catch (e) {
-    console.error(e);
+    throw new DatabaseConnectionError(e);
   }
 }
 

@@ -3,6 +3,7 @@ export interface SerializedError {
     msg: string;
     name?: string;
     field?: string;
+    originalError?: Error,
   }[];
 }
 

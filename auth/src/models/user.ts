@@ -1,4 +1,4 @@
-import mongodb from 'mongodb';
+import { MongoError } from 'mongodb';
 import mongoose from 'mongoose';
 
 import { emailValidator, log } from '../utils';
@@ -48,7 +48,7 @@ const userSchema = new mongoose.Schema({
 
 userSchema.statics.build = (params: UserParams) => new User(params);
 userSchema.post('save', function (
-  err: mongodb.MongoError,
+  err: MongoError,
   doc: mongoose.Document,
   next: mongoose.HookNextFunction
 ) {
