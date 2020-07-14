@@ -12,7 +12,7 @@ import {
   currentUserRouter,
 } from './routes';
 import { log } from './utils';
-import { errorHandler } from './middleware/errorHandler';
+import { errorHandler } from './middleware/error-handler';
 import { NotFoundError, DatabaseConnectionError } from './lib/errors';
 
 const app = express();
