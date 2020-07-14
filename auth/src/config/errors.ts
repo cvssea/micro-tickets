@@ -5,4 +5,6 @@ export const ERROR = {
   PASSWORD_REQUIRED: 'password-required',
   EMAIL_EXISTS: 'email-already-exists',
   NOT_FOUND: 'endpoint-not-found',
+  INVALID_CREDENTIALS: 'invalid-credentials',
+  BAD_REQUEST: 'bad-request',
 };

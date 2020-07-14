@@ -40,7 +40,7 @@ app.all('*', () => {
 app.use(errorHandler);
 
 const runApp = async () => {
-  if (!process.env.JWT_SECRET) {
+  if (!process.env.JWT_KEY) {
     throw new Error('JWT secret not found');
   }
 

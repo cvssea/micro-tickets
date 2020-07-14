@@ -15,6 +15,6 @@ export class Password {
   static async compare(hash: string, password: string): Promise<boolean> {
     const salt = hash.split('.')[1];
     const compareTo = await Password.hash(password, salt);
-    return compareTo === hash;
+    return compareTo !== hash;
   }
 }

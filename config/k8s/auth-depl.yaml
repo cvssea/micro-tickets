@@ -16,11 +16,11 @@ spec:
         - name: auth
           image: dockercv/auth
           env:
-            - name: JWT_SECRET
+            - name: JWT_KEY
               valueFrom:
                 secretKeyRef:
                   name: jwt-secret
-                  key: JWT_SECRET
+                  key: JWT_KEY
 ---
 apiVersion: v1
 kind: Service

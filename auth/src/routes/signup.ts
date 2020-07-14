@@ -1,7 +1,7 @@
-import jwt from 'jsonwebtoken';
 import express, { Request, Response } from 'express';
 
 // import { log } from '../utils';
+import { signJwt } from '../utils';
 import { User } from '../models/user';
 import { signupValidation, validate } from '../middleware/request-validator';
 
@@ -16,12 +16,7 @@ router.post(
     const user = User.build({ email, password });
     await user.save();
 
-    const token = jwt.sign(
-      { id: user.id, email: user.email },
-      process.env.JWT_SECRET!
-    );
-
-    req.session = { jwt: token };
+    req.session = await signJwt(user.id, user.email);
     res.status(201).json(user);
   }
 );
