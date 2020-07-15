@@ -1,6 +1,6 @@
 import express, { Request, Response } from 'express';
 
-import { signJwt } from '../utils';
+import { signJwt, log } from '../utils';
 import { User } from '../models/user';
 import { ERROR } from '../config/errors';
 import { Password } from '../lib/password';
