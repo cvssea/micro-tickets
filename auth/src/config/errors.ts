@@ -7,4 +7,5 @@ export const ERROR = {
   NOT_FOUND: 'endpoint-not-found',
   INVALID_CREDENTIALS: 'invalid-credentials',
   BAD_REQUEST: 'bad-request',
+  NOT_AUTHORIZED: 'forbidden',
 };
