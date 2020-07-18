@@ -1,28 +1,40 @@
-import App from 'next/app';
-import { buildClient } from '../lib/api';
+import Header from '../components/Header';
 
+import { buildClient } from '../lib/api';
 import 'bootstrap/dist/css/bootstrap.css';
 
 const AppComponent = ({ Component, pageProps }) => {
-  return <Component {...pageProps} />;
+  const { currentUser } = pageProps;
+  return (
+    <>
+      <Header currentUser={currentUser} />
+      <Component {...pageProps} />
+    </>
+  );
 };
 
-AppComponent.getInitialProps = async (appContext) => {
+AppComponent.getInitialProps = async ({ Component, ctx }) => {
   try {
-    const appProps = await App.getInitialProps(appContext);
+    let pageProps = {};
 
-    const api = buildClient(appContext.ctx);
+    if (
+      Component.getInitialProps &&
+      typeof Component.getInitialProps === 'function'
+    ) {
+      pageProps = await Component.getInitialProps(ctx);
+    }
+
+    const api = buildClient(ctx);
     const { data } = await api.get('/api/users/current');
 
     return {
-      ...appProps,
       pageProps: {
-        ...appProps.pageProps,
+        ...pageProps,
         ...data,
       },
     };
   } catch (e) {
-    console.log(e);
+    console.log(e.message);
     return {};
   }
 };
