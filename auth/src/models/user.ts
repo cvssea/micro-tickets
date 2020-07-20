@@ -1,5 +1,5 @@
-import { MongoError } from 'mongodb';
 import mongoose from 'mongoose';
+import { MongoError } from 'mongodb';
 import { ERROR, emailValidator, BadRequestError } from '@cvmicro/common';
 
 import { Password } from '../lib';
