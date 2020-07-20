@@ -1,9 +1,7 @@
 import express, { Request, Response } from 'express';
+import { signJwt, validate, signupValidation } from '@cvmicro/common';
 
-// import { log } from '../utils';
-import { signJwt } from '../utils';
 import { User } from '../models/user';
-import { signupValidation, validate } from '../middleware/request-validator';
 
 const router = express.Router();
 

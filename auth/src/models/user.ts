@@ -1,10 +1,8 @@
 import { MongoError } from 'mongodb';
 import mongoose from 'mongoose';
+import { ERROR, emailValidator, BadRequestError } from '@cvmicro/common';
 
-import { emailValidator, log } from '../utils';
-import { BadRequestError } from '../lib/errors';
 import { Password } from '../lib';
-import { ERROR } from '../config';
 
 // describe User schema
 interface UserParams {

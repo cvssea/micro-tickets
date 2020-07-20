@@ -1,8 +1,7 @@
 import mongoose from 'mongoose';
+import { log, DatabaseConnectionError } from '@cvmicro/common';
 
 import app from './app';
-import { log } from './utils';
-import { DatabaseConnectionError } from './lib/errors/DatabaseConnectionError';
 
 const serve = async () => {
   if (!process.env.JWT_KEY) {
