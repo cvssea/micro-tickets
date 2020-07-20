@@ -3,6 +3,7 @@ import 'express-async-errors';
 import morgan from 'morgan';
 import { json } from 'body-parser';
 import cookieSession from 'cookie-session';
+import { errorHandler, NotFoundError } from '@cvmicro/common';
 
 import {
   signinRouter,
@@ -10,8 +11,6 @@ import {
   signupRouter,
   currentUserRouter,
 } from './routes';
-import { errorHandler } from './middleware/error-handler';
-import { NotFoundError } from './lib/errors';
 
 const app = express();
 app.set('trust proxy', true); // behind ingress

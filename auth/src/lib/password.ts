@@ -1,6 +1,6 @@
 import { scrypt as scryptSync, randomBytes } from 'crypto';
 import { promisify } from 'util';
-import { log } from '../utils';
+// import { log } from '@cvmicro/common';
 
 const scrypt = promisify(scryptSync);
 
