@@ -10,7 +10,7 @@ const serve = async () => {
   }
 
   try {
-    await mongoose.connect('mongodb://auth-mongo-srv:27017', {
+    await mongoose.connect('mongodb://tickets-mongo-srv:27017', {
       useCreateIndex: true,
       useNewUrlParser: true,
       useUnifiedTopology: true,
